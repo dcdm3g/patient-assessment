@@ -62,19 +62,19 @@ model VerificationToken {
 }
 
 model Assessment {
-    id          String         @id @default(uuid())
+    id          String     @id @default(uuid())
     type        String
     patientName String
     date        DateTime
     questions   Question[]
     finalScore  Decimal
     userId      String?
-    user        User?          @relation(fields: [userId], references: [id])
+    user        User?      @relation(fields: [userId], references: [id])
 }
 
 model Question {
     id           String      @id @default(uuid())
-    content      String
+    question     String
     answer       String
     assessment   Assessment? @relation(fields: [assessmentId], references: [id])
     assessmentId String?
