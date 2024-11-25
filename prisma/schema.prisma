@@ -61,13 +61,9 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-enum AssessmentType {
-    COGNITIVE_STATUS
-}
-
 model Assessment {
     id          String         @id @default(uuid())
-    type        AssessmentType
+    type        String
     patientName String
     date        DateTime
     questions   Question[]

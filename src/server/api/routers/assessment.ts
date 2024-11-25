@@ -7,12 +7,19 @@ import {
 
 export const assessmentRouter = createTRPCRouter({
   create: protectedProcedure
-    .input(z.object({ name: z.string().min(1) }))
-    .mutation(async ({ ctx, input }) => {
-      return ctx.db.post.create({
+    .input(z.object({
+      type: z.string().trim().min(1),
+      patientName: z.string().min(1),
+      date: z.date(),
+      finalScore: z.number().min(0).max(100),
+    }))
+    .mutation(async ({ ctx, input: { type, patientName, date, finalScore } }) => {
+      return ctx.db.assessment.create({
         data: {
-          name: input.name,
-          createdBy: { connect: { id: ctx.session.user.id } },
+          type,
+          patientName,
+          date,
+          finalScore,
         },
       });
     }),
